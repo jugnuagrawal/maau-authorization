@@ -8,17 +8,17 @@ module.exports = function (options = { url: '' }) {
     return (req, res, next) => {
         if (req.headers.authorization) {
             request.get({
-                url: options.url,
+                url: options.url+'/validate',
                 headers: {
                     'authorization': req.headers.authorization
                 }
-            }, function (err, res, body) {
+            }, function (err, authRes, body) {
                 if (err) {
                     res.status(401).json({ message: 'You are not authorized to access this.' });
                     return;
                 }
-                if (res.statusCode !== 200 || res.statusCode !== 202 || res.statusCode !== 204) {
-                    res.status(res.statusCode).json(body);
+                if (authRes.statusCode !== 200 || authRes.statusCode !== 202 || authRes.statusCode !== 204) {
+                    res.status(authRes.statusCode).json(body);
                 } else {
                     next();
                 }
