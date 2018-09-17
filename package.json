@@ -1,0 +1,22 @@
+{
+  "name": "maau-authorization",
+  "version": "1.0.0",
+  "description": "An authorization middleware for express when using maau",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jugnuagrawal/maau-authorization.git"
+  },
+  "author": "Jugnu Agrawal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jugnuagrawal/maau-authorization/issues"
+  },
+  "homepage": "https://github.com/jugnuagrawal/maau-authorization#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
