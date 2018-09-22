@@ -30,8 +30,9 @@ module.exports = function (options = { url: '', options: {} }) {
                 } else {
                     req.userDetails = body;
                     if (req.method == 'POST' || req.method == 'PUT' || req.method == 'DELETE') {
-                        req.body.manageByUser = body._id;
+                        req.body.updatedBy = body._id;
                         req.body.namespace = body.data.namespace;
+                        req.body.organization = body.data.organization;
                     }
                     next();
                 }
