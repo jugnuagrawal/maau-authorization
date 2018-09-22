@@ -1,5 +1,5 @@
 const request = require('request');
-module.exports = function (options = { url: '', options: '' }) {
+module.exports = function (options = { url: '', options: {} }) {
     if (!options || !options.url) {
         options = {
             url: 'http://maau.jugnuagrawal.in',
@@ -9,9 +9,11 @@ module.exports = function (options = { url: '', options: '' }) {
     return (req, res, next) => {
         if (req.headers.authorization) {
             const reqURL = options.url + '/authorized';
-            if (options.options) {
-                reqURL += ('?options=' + options.options);
+            if (!options.options) {
+                options.options = {};
             }
+            options.options.method = req.method;
+            reqURL += ('?options=' + JSON.stringify(options.options));
             request.get({
                 url: reqURL,
                 headers: {
