@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jugnuagrawal/maau-authorization#readme",
   "dependencies": {
+    "log4js": "^3.0.5",
     "request": "^2.88.0"
   }
 }

@@ -1,4 +1,13 @@
 const request = require('request');
+const log4js = require('log4js');
+const logger = log4js.getLogger('authorization');
+const loglevel = process.env.LOG_LEVEL || 'info';
+
+log4js.configure({
+    appenders: { 'out': { type: 'stdout' }, authorization: { type: 'file', filename: 'logs/authorization.log', maxLogSize: 52428800 } },
+    categories: { default: { appenders: ['out', 'authorization'], level: loglevel } }
+});
+
 module.exports = function (options = { url: '', options: {} }) {
     if (!options || !options.url) {
         options = {
@@ -14,6 +23,7 @@ module.exports = function (options = { url: '', options: {} }) {
             }
             options.options.method = req.method;
             reqURL += ('?options=' + JSON.stringify(options.options));
+            logger.debug('Request URL', reqURL);
             request.get({
                 url: reqURL,
                 headers: {
@@ -22,9 +32,11 @@ module.exports = function (options = { url: '', options: {} }) {
                 json: true
             }, function (err, authRes, body) {
                 if (err) {
+                    logger.error(err);
                     res.status(401).json({ message: 'You are not authorized to access this.' });
                     return;
                 }
+                logger.debug('Response Code', authRes.statusCode);
                 if (authRes.statusCode !== 200 && authRes.statusCode !== 202 && authRes.statusCode !== 204) {
                     res.status(authRes.statusCode).json(body);
                 } else {
