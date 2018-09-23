@@ -8,7 +8,7 @@ module.exports = function (options = { url: '', options: {} }) {
     }
     return (req, res, next) => {
         if (req.headers.authorization) {
-            const reqURL = options.url + '/authorized';
+            let reqURL = options.url + '/authorized';
             if (!options.options) {
                 options.options = {};
             }
