@@ -40,6 +40,11 @@ module.exports = function (options = { url: '', options: {} }) {
                 if (authRes.statusCode !== 200 && authRes.statusCode !== 202 && authRes.statusCode !== 204) {
                     res.status(authRes.statusCode).json(body);
                 } else {
+                    if (!req.query.filter) {
+                        req.query.filter = {};
+                    }
+                    req.query.filter.namespace = body.data.namespace;
+                    req.query.filter.organization = body.data.organization;
                     req.userDetails = body;
                     if (req.method == 'POST' || req.method == 'PUT' || req.method == 'DELETE') {
                         req.body.updatedBy = body._id;
