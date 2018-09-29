@@ -45,6 +45,7 @@ module.exports = function (options = { url: '', options: {} }) {
                     }
                     req.query.filter.namespace = body.data.namespace;
                     req.query.filter.organization = body.data.organization;
+                    req.query.filter = JSON.stringify(req.query.filter);
                     req.userDetails = body;
                     if (req.method == 'POST' || req.method == 'PUT' || req.method == 'DELETE') {
                         req.body.updatedBy = body._id;
