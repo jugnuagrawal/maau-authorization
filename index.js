@@ -43,8 +43,10 @@ module.exports = function (options = { url: '', options: {} }) {
                     if (!req.query.filter) {
                         req.query.filter = {};
                     }
+                    if (options.service !== 'organization') {
+                        req.query.filter.organization = body.data.organization;
+                    }
                     req.query.filter.namespace = body.data.namespace;
-                    req.query.filter.organization = body.data.organization;
                     req.query.filter = JSON.stringify(req.query.filter);
                     req.userDetails = body;
                     if (req.method == 'POST' || req.method == 'PUT' || req.method == 'DELETE') {
